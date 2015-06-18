@@ -5,9 +5,11 @@ use Rack::Static,
 run lambda { |env|
   file_path = ".#{env['PATH_INFO']}"
 
+  file_path = './index.html' if file_path == './'
+
   if File.exists?(file_path)
     code = 200
-    content = File.open(".#{env['PATH_INFO']}", File::RDONLY)
+    content = File.open(file_path, File::RDONLY)
   else
     code = 404
     content = ""
